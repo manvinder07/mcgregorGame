@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener {
         icon = new ImageIcon("src/arrowkeys.png");
         image = icon.getImage();
         icon = new ImageIcon(image.getScaledInstance(215, 135, Image.SCALE_SMOOTH));
-        label = new JLabel("Use Arrow Keys To Move");
+        label = new JLabel("Use Arrow Keys or WASD To Move");
         label.setVerticalTextPosition(JLabel.BOTTOM);
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setForeground(Color.WHITE);
@@ -80,7 +80,8 @@ public class GamePanel extends JPanel implements ActionListener {
              */
             // draws circle (apple)
             g.setColor(Color.red);
-            g.fillOval(appleX + (UNIT_SIZE / 4), appleY + (UNIT_SIZE / 4), UNIT_SIZE / 2, UNIT_SIZE / 2);
+            g.fillOval(appleX + (UNIT_SIZE / 4), appleY + (UNIT_SIZE / 4), UNIT_SIZE / 2,
+                    UNIT_SIZE / 2);
 
             // draws snake
             for (int i = 0; i < bodyParts; i++) {
@@ -141,12 +142,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     public void checkCollisions() {
         // check for head touching body
-        for (int i = bodyParts; i > 0; i--) {
-            if ((x[0] == x[i]) && (y[0] == y[i])) {
-                running = 0;
-                break;
-            }
-        }
+//        for (int i = bodyParts; i > 0; i--) {
+//            if ((x[0] == x[i]) && (y[0] == y[i])) {
+//                running = 0;
+//                break;
+//            }
+//        }
         // check for head colliding with left border
         if (x[0] < 0) {
             running = 0;
@@ -222,28 +223,48 @@ public class GamePanel extends JPanel implements ActionListener {
     public class MyKeyAdapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_LEFT:
-                    if (direction != 'R') {
+            if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+                if (direction != 'R') {
                         direction = 'L';
                     }
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if (direction != 'L') {
-                        direction = 'R';
-                    }
-                    break;
-                case KeyEvent.VK_UP:
-                    if (direction != 'D') {
-                        direction = 'U';
-                    }
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if (direction != 'U') {
-                        direction = 'D';
-                    }
-                    break;
             }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+                if (direction != 'L') {
+                    direction = 'R';
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+                if (direction != 'D') {
+                    direction = 'U';
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+                if (direction != 'U') {
+                    direction = 'D';
+                }
+            }
+//            switch (e.getKeyCode()) {
+//                case KeyEvent.VK_LEFT:
+//                    if (direction != 'R') {
+//                        direction = 'L';
+//                    }
+//                    break;
+//                case KeyEvent.VK_RIGHT:
+//                    if (direction != 'L') {
+//                        direction = 'R';
+//                    }
+//                    break;
+//                case KeyEvent.VK_UP:
+//                    if (direction != 'D') {
+//                        direction = 'U';
+//                    }
+//                    break;
+//                case KeyEvent.VK_DOWN:
+//                    if (direction != 'U') {
+//                        direction = 'D';
+//                    }
+//                    break;
+//            }
         }
     }
 }
